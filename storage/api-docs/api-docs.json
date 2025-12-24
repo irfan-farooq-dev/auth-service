@@ -15,17 +15,6 @@
                     }
                 }
             }
-        },
-        "/api/test3": {
-            "get": {
-                "summary": "Fetch endpoint",
-                "operationId": "0facc2ed22f57ee59fd1b496967f1a6b",
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
         }
     }
 }

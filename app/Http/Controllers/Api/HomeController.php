@@ -23,18 +23,6 @@ class HomeController extends Controller
         return response()->json(['message' => 'Swagger is working']);
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/test3",
-     *     summary="Fetch endpoint",
-     *     @OA\Response(response=200, description="Success")
-     * )
-     */
-    public function fetch()
-    {
-        return response()->json(['message' => 'Swagger is working']);
-    }
-
     public function update(Request $request, $id)
     {
         //
