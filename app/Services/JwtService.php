@@ -13,10 +13,10 @@ class JwtService {
         }
 
         $payload = [
-            'iss' => config('jwt.issuer', 'auth_service'),     // issuer
+            'iss' => config('jwt.issuer', 'auth_service'),  // issuer
             'sub' => $userId,                               // subject (user id)
             'iat' => time(),                                // issued at
-            'exp' => time() + config('jwt.ttl', 60)          // expiry
+            'exp' => time() + config('jwt.ttl', 60)         // expiry
         ];
 
         $key =  (string)config('jwt.secret');
