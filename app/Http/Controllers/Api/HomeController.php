@@ -11,17 +11,6 @@ class HomeController extends Controller
     // execute this command to generate swagger docs:
     // php artisan l5-swagger:generate
 
-    /**
-     * @OA\Get(
-     *     path="/api/test",
-     *     summary="Test endpoint",
-     *     @OA\Response(response=200, description="Success")
-     * )
-     */
-    public function index()
-    {
-        return response()->json(['message' => 'Swagger is working']);
-    }
 
     public function update(Request $request, $id)
     {
