@@ -1,18 +1,21 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::post('/refresh', [AuthController::class, 'refresh']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('jwt');
+
+Route::get('/admin/dashboard', [AdminController::class, 'index'])
+    ->middleware(['jwt', 'role:admin']);
+
 Route::middleware('jwt')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show']);
 });
-
 
 Route::get('/clear', function () {
 

@@ -1,4 +1,5 @@
 <?php
+namespace App\Http\Controllers\Api;
 
 /**
  * OpenAPI security definitions and global requirements.
@@ -14,4 +15,5 @@
  *     security={{"bearerAuth":{}}}
  * )
  */
-class OpenApiSecurity {}
+class OpenApiSecurity
+{}

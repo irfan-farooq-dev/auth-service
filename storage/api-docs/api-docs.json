@@ -153,6 +153,96 @@
                 }
             }
         },
+        "/api/refresh": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh access token",
+                "description": "Exchange a valid refresh token for a new access token and rotate the refresh token.",
+                "operationId": "f6409cd8d794404a6410b0767432b0f4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "refresh_token"
+                                ],
+                                "properties": {
+                                    "refresh_token": {
+                                        "type": "string",
+                                        "example": "a1b2c3..."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tokens rotated and new access token returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "ey..."
+                                        },
+                                        "refresh_token": {
+                                            "type": "string",
+                                            "example": "newrefreshtoken..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid or expired refresh token"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user",
+                "description": "Revoke all refresh tokens for the authenticated user.",
+                "operationId": "ad65cbbd4e9f201619eae184a5961a98",
+                "responses": {
+                    "200": {
+                        "description": "Logged out",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/profile": {
             "get": {
                 "tags": [
@@ -161,11 +251,6 @@
                 "summary": "Get current user profile",
                 "description": "Returns the authenticated user's profile. Requires Authorization header with Bearer token.",
                 "operationId": "f1784685f8270527da017b3616288443",
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "User profile",
@@ -199,21 +284,22 @@
                     "404": {
                         "description": "User not found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },
-    "security": [
-        {
-            "bearerAuth": []
-        }
-    ],
     "components": {
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
-                "scheme": "bearer",
-                "bearerFormat": "JWT"
+                "description": "OpenAPI security definitions and global requirements.",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     },
