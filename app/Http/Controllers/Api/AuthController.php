@@ -121,12 +121,14 @@ class AuthController extends Controller
             'expires_at' => now()->addDays(14), // 2 weeks validity
         ]);
 
+        // Roles and Permissions already included in JWT token (accessToken)
         // return response()->json([
         //     'user'          => $user,
         //     'access_token'  => $accessToken,
         //     'refresh_token' => $refreshToken,
         // ]);
 
+        // Roles and Permissions added for testing purpose
         return response()->json([
             'user'          => $user,
             'access_token'  => $accessToken,
