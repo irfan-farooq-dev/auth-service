@@ -56,6 +56,7 @@ class AuthController extends Controller
             $token = JwtService::generateToken($user->id);
 
             DB::commit();
+
         } catch (\Exception $e) {
             DB::rollBack();
 

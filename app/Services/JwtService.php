@@ -25,13 +25,13 @@ class JwtService
             'exp'         => time() + config('jwt.ttl', 3600),
         ];
 
-        $key = (string) config('jwt.secret');
+        $key = file_get_contents(config('jwt.private_key_path'));
 
-        return JWT::encode($payload, $key, config('jwt.algo', 'HS256'));
+        return JWT::encode($payload, $key, config('jwt.algo', 'RS256'));
     }
 
     public static function decodeToken($token)
     {
-        return JWT::decode($token, new Key(config('jwt.secret'), config('jwt.algo', 'HS256')));
+        return JWT::decode($token, new Key(config('jwt.private_key_path'), config('jwt.algo', 'RS256')));
     }
 }
