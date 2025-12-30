@@ -1,6 +1,6 @@
 # Auth Service
 
-A standalone authentication microservice built with Laravel, providing JWT-based API authentication for InterviewPrep and future projects.
+A standalone authentication microservice built with Laravel, providing JWT-based API authentication for future projects.
 
 ---
 
@@ -50,3 +50,6 @@ php artisan migrate
 
 # Generate JWT secret
 php artisan jwt:secret
+
+# Navigate to api documentation and test the endpoints
+http://base-url/api/documentation
