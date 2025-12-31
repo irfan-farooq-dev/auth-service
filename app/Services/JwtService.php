@@ -32,6 +32,16 @@ class JwtService
 
     public static function decodeToken($token)
     {
-        return JWT::decode($token, new Key(config('jwt.private_key_path'), config('jwt.algo', 'RS256')));
+        $publicKey = file_get_contents(config('jwt.public_key_path'));
+
+        \Log::info('PublicKey: ' . $publicKey);
+
+        // Detect OpenSSH public key format (starts with "ssh-rsa") which is not a PEM
+        // format expected by Firebase\JWT for RS256 verification.
+        if (strpos(trim($publicKey), 'ssh-rsa') === 0) {
+            throw new \RuntimeException("Public key appears to be OpenSSH format (starts with 'ssh-rsa'). Convert it to PEM (e.g. `ssh-keygen -f id_rsa -e -m PEM > id_rsa_pub.pem` or `openssl rsa -in id_rsa -pubout -out id_rsa_pub.pem`) and update AUTH_PUBLIC_KEY_PATH to point to the PEM file.");
+        }
+
+        return JWT::decode($token, new Key($publicKey, config('jwt.algo', 'RS256')));
     }
 }
